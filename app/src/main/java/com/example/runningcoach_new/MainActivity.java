@@ -23,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //텐서플로우 모델 확인을 위해 잠시 사용
+        Intent intent = new Intent(getApplicationContext(), RunningAnalyzeActivity.class);
+        startActivity(intent);
+
         //네비게이션 하단바
         calendarFragment = new CalendarFragment();
         homeFragment = new HomeFragment();
