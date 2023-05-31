@@ -1,9 +1,12 @@
 package com.example.runningcoach_new;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +20,16 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running_analyze);
+
+        //뒤로가기 버튼
+        ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);
+        Intent intent=getIntent();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // MyClassifier 인스턴스 생성
         AssetManager assetManager = getAssets();
@@ -40,6 +53,17 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //달리기 피드백 화면으로 이동
+        ImageButton btnGofeedback = (ImageButton) findViewById(R.id.btnGofeedback);
+        btnGofeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), RunningFeedbackActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private Bitmap loadImageFromAssets(String fileName) throws IOException {
