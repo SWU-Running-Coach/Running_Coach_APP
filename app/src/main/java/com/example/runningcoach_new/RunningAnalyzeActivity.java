@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,10 +17,20 @@ import java.io.InputStream;
 public class RunningAnalyzeActivity extends AppCompatActivity {
 
     private Classifier classifier;
+    private MoveNet movenet;
+
+    //private ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running_analyze);
+
+        //이미지 시각화 위해 잠시 사용, 추후 삭제
+//        setContentView(R.layout.bitmap);
+//        imageView = findViewById(R.id.imageView_bitmap);
+//
+
 
         //뒤로가기 버튼
         ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);
@@ -37,22 +48,32 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
 
         // 이미지 파일 로드 및 분류 작업 수행
         try {
-            Bitmap image = loadImageFromAssets("no_img.jpg");
+            Bitmap image = loadImageFromAssets("ok_data108.jpg");
             String result = classifier.classifyImage(image);
 
             System.out.println(result);
 
             // 분류 결과 처리
 
-//            if (result == "OK")
-//            {
-//                //1. openpose를 사용하여 키 포인트 추출하기
-//                //2. 추출된 키포인트로 각도 계산하기
-//            }
+            if (result == "OK")
+            {
+                //1. openpose를 사용하여 키 포인트 추출하기
+                movenet = new MoveNet();
+                Bitmap bitmap = movenet.MoveNetClass(assetManager, "lite-model_movenet_singlepose_thunder_3.tflite",
+                              image.getWidth(), image.getHeight(), image);
+
+                //이미지 시각화 위해 잠시 사용, 추후 삭제
+//                if (imageView != null) {
+//                    imageView.setImageBitmap(bitmap);
+//                }
+
+                //2. 추출된 키포인트로 각도 계산하기
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         //달리기 피드백 화면으로 이동
         ImageButton btnGofeedback = (ImageButton) findViewById(R.id.btnGofeedback);
@@ -66,8 +87,10 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
 
     }
 
-    private Bitmap loadImageFromAssets(String fileName) throws IOException {
+
+    public Bitmap loadImageFromAssets(String fileName) throws IOException {
         InputStream inputStream = getAssets().open(fileName);
         return BitmapFactory.decodeStream(inputStream);
     }
+
 }
