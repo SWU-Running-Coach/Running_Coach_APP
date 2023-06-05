@@ -68,6 +68,8 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
 //                }
 
                 //2. 추출된 키포인트로 각도 계산하기
+                //movenet.MoveNetClass 실행시, 각도 계산까지 완료
+                //이후 각도를 통해 자세 분류 예정
             }
 
         } catch (IOException e) {
