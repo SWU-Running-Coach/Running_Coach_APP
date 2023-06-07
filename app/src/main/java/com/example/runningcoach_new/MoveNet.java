@@ -26,7 +26,7 @@ public class MoveNet{
 
     }
 
-    public Bitmap MoveNetClass(AssetManager assetManager, String modelPath, int inputImageWidth, int inputImageHeight, Bitmap bitmap) throws IOException {
+    public AnalyzeResult MoveNetClass(AssetManager assetManager, String modelPath, int inputImageWidth, int inputImageHeight, Bitmap bitmap) throws IOException {
         // 모델 로드
         MappedByteBuffer modelBuffer = loadModelFile(assetManager, modelPath);
         interpreter = new Interpreter(modelBuffer);
@@ -34,11 +34,14 @@ public class MoveNet{
         // 이미지 전처리
         imageProcessor = new ImagePreprocessor(inputImageWidth, inputImageHeight);
 
-        Bitmap finish = runInference(bitmap);
-        return finish;
+        AnalyzeResult result = new AnalyzeResult();
+
+        runInference(bitmap, result);
+
+        return result;
     }
 
-    public Bitmap runInference(Bitmap bitmap) {
+    public void runInference(Bitmap bitmap, AnalyzeResult result) {
         Bitmap newbitmap = ImageUtils.resizeBitmap(bitmap, 256, 256);
 
         // 이미지 전처리
@@ -48,10 +51,10 @@ public class MoveNet{
         TensorBuffer outputBuffer = runInference(inputImage);
 
         // 결과 처리
-        Bitmap outBitmap = processOutput(outputBuffer, newbitmap);
+        Bitmap outBitmap = processOutput(outputBuffer, newbitmap, result);
 
+        result.setBitmap(outBitmap);
 
-        return outBitmap;
     }
 
     private MappedByteBuffer loadModelFile(AssetManager assetManager, String modelPath) throws IOException {
@@ -78,7 +81,8 @@ public class MoveNet{
         return outputBuffer;
     }
 
-    private Bitmap processOutput(TensorBuffer outputBuffer, Bitmap bitmap) {
+    private Bitmap processOutput(TensorBuffer outputBuffer, Bitmap bitmap, AnalyzeResult result) {
+
         Paint paint = new Paint();
         paint.setColor(Color.RED);
         paint.setStrokeWidth(10f);
@@ -153,7 +157,7 @@ public class MoveNet{
         drawLine(14, 16, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
 
 
-        calculateJointAngle(joints);
+        calculateJointAngle(joints, result);
 
         return bitmap;
     }
@@ -168,18 +172,16 @@ public class MoveNet{
         canvas.drawLine(startY, startX, endY, endX, paint);
     }
 
-    private void calculateJointAngle(ArrayList<Joint> joints) {
+    private void calculateJointAngle(ArrayList<Joint> joints, AnalyzeResult result) {
         // 각 관절 포인트의 좌표를 담을 배열 생성
         //left Shoulder = 5, right Shoulder = 6, left hip = 11, right hip = 12
         //left knee = 13, right knee = 14, left ankle = 15, right ankle = 16
 
         double legAngle = calculateLegAngle(joints.get(11), joints.get(12), joints.get(13), joints.get(14), joints.get(15), joints.get(16));
-
-        System.out.println("legAngle = " + legAngle);
-
         double uppderBodyAngle = calculateUppderBodyAngle(joints.get(5), joints.get(6), joints.get(11), joints.get(12), joints.get(13), joints.get(14));
 
-        System.out.println("상체 = " + uppderBodyAngle);
+        result.setLegAngle(legAngle);
+        result.setUppderBodyAngle(uppderBodyAngle);
 
     }
 
