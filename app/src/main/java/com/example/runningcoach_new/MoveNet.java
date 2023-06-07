@@ -114,10 +114,58 @@ public class MoveNet{
             joints.add(new Joint(i, jointName[i], x, y));
         }
 
+        //스켈레톤 선 그리기
+
+        paint.setColor(Color.GREEN);
+        paint.setStrokeWidth(2f);
+
+        // left shoulder-left elbow(5, 7)
+        drawLine(5, 7, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
+
+        // left elbow-left wrist(7, 9)
+        drawLine(7, 9, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
+
+        // left shoulder-left hip(5, 11)
+        drawLine(5, 11, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
+
+        // left hip-left knee(11, 13)
+        drawLine(11, 13, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
+
+        // left knee-left ankle(13, 15)
+        drawLine(13, 15, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
+
+        // left shoulder-right shoulder(5, 6)
+        drawLine(5, 6, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
+
+        // right shoulder-right elbow(6, 8)
+        drawLine(6, 8, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
+
+        // right elbow-right wrist(8, 10)
+        drawLine(8, 10, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
+
+        // right shoulder-right hip(6, 12)
+        drawLine(6, 12, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
+
+        // right hip-right knee(12, 14)
+        drawLine(12, 14, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
+
+        // right knee-right ankle(14, 16)
+        drawLine(14, 16, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
+
 
         calculateJointAngle(joints);
 
         return bitmap;
+    }
+
+    private void drawLine(int start, int end, float width, float height, Paint paint, ArrayList<Joint> joints, Canvas canvas)
+    {
+        float startX = joints.get(start).getX() * height;
+        float startY = joints.get(start).getY() * width;
+        float endX = joints.get(end).getX() * height;
+        float endY = joints.get(end).getY() * width;
+
+        canvas.drawLine(startY, startX, endY, endX, paint);
     }
 
     private void calculateJointAngle(ArrayList<Joint> joints) {
@@ -146,15 +194,14 @@ public class MoveNet{
             double rad = Math.atan2(C[1] - A[1], C[0] - A[0]) - Math.atan2(B[1] - A[1], B[0] - A[0]);
             double deg = rad * (180 / Math.PI);
 
-            System.out.println("left");
             if (deg >= -180 && deg <= 180) {
                 deg = Math.abs(deg);
-                System.out.println(deg);
+
                 return deg;
             } else {
                 deg = 360 - Math.abs(deg);
                 deg = Math.abs(deg);
-                System.out.println(deg);
+
                 return deg;
             }
 
@@ -168,15 +215,14 @@ public class MoveNet{
             double rad = Math.atan2(C[1] - A[1], C[0] - A[0]) - Math.atan2(B[1] - A[1], B[0] - A[0]);
             double deg = rad * (180 / Math.PI);
 
-            System.out.println("right");
             if (deg >= -180 && deg <= 180) {
                 deg = Math.abs(deg);
-                System.out.println(deg);
+
                 return deg;
             } else {
                 deg = 360 - Math.abs(deg);
                 deg = Math.abs(deg);
-                System.out.println(deg);
+
                 return deg;
             }
         }
@@ -196,7 +242,6 @@ public class MoveNet{
             double angle = Math.toDegrees(Math.atan2(Math.abs(delta_y), Math.abs(delta_x)));
             angle = Math.abs(angle);
 
-            System.out.println("right로 계산");
             return angle;
         }
         else {
@@ -211,7 +256,6 @@ public class MoveNet{
             double angle = Math.toDegrees(Math.atan2(Math.abs(delta_y), Math.abs(delta_x)));
             angle = Math.abs(angle);
 
-            System.out.println("left로 계산");
             return angle;
         }
 
