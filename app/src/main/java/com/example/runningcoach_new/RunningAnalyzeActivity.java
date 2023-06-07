@@ -19,7 +19,7 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
     private Classifier classifier;
     private MoveNet movenet;
 
-    //private ImageView imageView;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
         //이미지 시각화 위해 잠시 사용, 추후 삭제
 //        setContentView(R.layout.bitmap);
 //        imageView = findViewById(R.id.imageView_bitmap);
-//
+
 
 
         //뒤로가기 버튼
@@ -59,12 +59,14 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
             {
                 //1. openpose를 사용하여 키 포인트 추출하기
                 movenet = new MoveNet();
-                Bitmap bitmap = movenet.MoveNetClass(assetManager, "lite-model_movenet_singlepose_thunder_3.tflite",
+                AnalyzeResult analyzeResult = movenet.MoveNetClass(assetManager, "lite-model_movenet_singlepose_thunder_3.tflite",
                               image.getWidth(), image.getHeight(), image);
 
                 //이미지 시각화 위해 잠시 사용, 추후 삭제
 //                if (imageView != null) {
-//                    imageView.setImageBitmap(bitmap);
+//                    imageView.setImageBitmap(analyzeResult.getBitmap());
+//                    System.out.println("다리 각도 : " + analyzeResult.getLegAngle());
+//                    System.out.println("상체 각도 : " + analyzeResult.getUppderBodyAngle());
 //                }
 
                 //2. 추출된 키포인트로 각도 계산하기
@@ -78,14 +80,14 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
 
 
         //달리기 피드백 화면으로 이동
-        ImageButton btnGofeedback = (ImageButton) findViewById(R.id.btnGofeedback);
-        btnGofeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RunningFeedbackActivity.class);
-                startActivity(intent);
-            }
-        });
+//        ImageButton btnGofeedback = (ImageButton) findViewById(R.id.btnGofeedback);
+//        btnGofeedback.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), RunningFeedbackActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 
