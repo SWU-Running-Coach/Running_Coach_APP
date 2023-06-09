@@ -33,12 +33,11 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
 
         //동영상 프레임 분할을 위한 테스트(임시), 추후 삭제
         // 비디오 Uri 생성
-        Uri videoUri = Uri.parse("assets://videorun.mp4");
         // VideoFrameExtractor 인스턴스 생성
         VideoFrameExtractor frameExtractor = new VideoFrameExtractor();
         // extractFrames 메서드 호출
-        VideoFrameExtractor.extractFrames(videoUri);
-
+        AssetManager manager = getAssets();
+        VideoFrameExtractor.extractFrames(manager);
 
         //뒤로가기 버튼
         ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);

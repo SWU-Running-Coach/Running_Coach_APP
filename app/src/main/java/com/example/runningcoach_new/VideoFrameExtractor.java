@@ -1,6 +1,8 @@
 package com.example.runningcoach_new;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
@@ -11,11 +13,20 @@ import java.io.IOException;
 public class VideoFrameExtractor {
     private static final long FRAME_INTERVAL = 500; // 0.5초 간격
 
-    public static void extractFrames(Uri videoUri) {
+    public static void extractFrames(AssetManager assetManager) {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-        retriever.setDataSource(videoUri.getPath());
+        AssetFileDescriptor assetFileDescriptor;
+        try {
+            assetFileDescriptor = assetManager.openFd("videorun.mp4");
+            retriever.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+            assetFileDescriptor.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
         String duration = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+
+
         long videoDuration = Long.parseLong(duration);
 
         long currentTime = 0;
@@ -45,4 +56,5 @@ public class VideoFrameExtractor {
 
 
     }
+
 }
