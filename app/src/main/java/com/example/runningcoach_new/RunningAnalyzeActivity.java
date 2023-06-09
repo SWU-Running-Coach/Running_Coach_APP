@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.net.Uri;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,17 +20,24 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
     private Classifier classifier;
     private MoveNet movenet;
 
-    //private ImageView imageView;
+//    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running_analyze);
 
-        //이미지 시각화 위해 잠시 사용, 추후 삭제
+//        //이미지 시각화 위해 잠시 사용, 추후 삭제
 //        setContentView(R.layout.bitmap);
 //        imageView = findViewById(R.id.imageView_bitmap);
-//
+
+        //동영상 프레임 분할을 위한 테스트(임시), 추후 삭제
+        // 비디오 Uri 생성
+        Uri videoUri = Uri.parse("assets://videorun.mp4");
+        // VideoFrameExtractor 인스턴스 생성
+        VideoFrameExtractor frameExtractor = new VideoFrameExtractor();
+        // extractFrames 메서드 호출
+        VideoFrameExtractor.extractFrames(videoUri);
 
 
         //뒤로가기 버튼
@@ -62,7 +70,7 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
                 Bitmap bitmap = movenet.MoveNetClass(assetManager, "lite-model_movenet_singlepose_thunder_3.tflite",
                               image.getWidth(), image.getHeight(), image);
 
-                //이미지 시각화 위해 잠시 사용, 추후 삭제
+//                //이미지 시각화 위해 잠시 사용, 추후 삭제
 //                if (imageView != null) {
 //                    imageView.setImageBitmap(bitmap);
 //                }
@@ -83,6 +91,8 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RunningFeedbackActivity.class);
+                //각도 데이터를 intent로 전달
+//                intent.putExtra("name",@@@@.getText().toString());
                 startActivity(intent);
             }
         });

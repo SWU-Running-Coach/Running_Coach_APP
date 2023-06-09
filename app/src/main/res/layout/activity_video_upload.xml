@@ -30,39 +30,53 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/btnVideoupload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:layout_gravity="center"
-            android:background="#00FFFFFF"
-            app:srcCompat="@drawable/upload_button" />
-
-
-        <ImageView
-            android:id="@+id/text1"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="50dp"
-            app:srcCompat="@drawable/videouploadtext" />
-
-        <ImageButton
-            android:id="@+id/btnGoanalyze"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="80dp"
-            android:background="#00FFFFFF"
-            android:scaleX="1.2"
-            android:scaleY="1.2"
-            app:srcCompat="@drawable/an_button" />
-    </LinearLayout>
+            android:orientation="vertical" >
+
+            <ImageButton
+                android:id="@+id/btnVideoupload"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#FB7303"
+                app:srcCompat="@drawable/upload_button" />
+
+            <VideoView
+                android:id="@+id/uploadVideoView"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/orange" />
+
+            <ImageView
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="50dp"
+                app:srcCompat="@drawable/videouploadtext" />
+
+            <ImageButton
+                android:id="@+id/btnGoanalyze"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="#00FFFFFF"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                app:srcCompat="@drawable/an_button" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
