@@ -37,7 +37,7 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
         VideoFrameExtractor frameExtractor = new VideoFrameExtractor();
         // extractFrames 메서드 호출
         AssetManager manager = getAssets();
-        VideoFrameExtractor.extractFrames(manager);
+        VideoFrameExtractor.extractFrames(getApplicationContext(), manager);
 
         //뒤로가기 버튼
         ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);
