@@ -66,12 +66,14 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
             {
                 //1. openpose를 사용하여 키 포인트 추출하기
                 movenet = new MoveNet();
-                Bitmap bitmap = movenet.MoveNetClass(assetManager, "lite-model_movenet_singlepose_thunder_3.tflite",
+                AnalyzeResult analyzeResult = movenet.MoveNetClass(assetManager, "lite-model_movenet_singlepose_thunder_3.tflite",
                               image.getWidth(), image.getHeight(), image);
 
 //                //이미지 시각화 위해 잠시 사용, 추후 삭제
 //                if (imageView != null) {
-//                    imageView.setImageBitmap(bitmap);
+//                    imageView.setImageBitmap(analyzeResult.getBitmap());
+//                    System.out.println("다리 각도 : " + analyzeResult.getLegAngle());
+//                    System.out.println("상체 각도 : " + analyzeResult.getUppderBodyAngle());
 //                }
 
                 //2. 추출된 키포인트로 각도 계산하기
@@ -95,6 +97,7 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
     }
 
