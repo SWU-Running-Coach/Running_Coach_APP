@@ -9,13 +9,14 @@ import android.net.Uri;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class VideoFrameExtractor {
     private static final long FRAME_INTERVAL = 500; // 0.5초 간격
     private static final int RESIZED_WIDTH = 640; // 리사이즈할 가로 크기
     private static final int RESIZED_HEIGHT = 480; // 리사이즈할 세로 크기
 
-    public static void extractFrames(Context context, AssetManager assetManager) {
+    public static ArrayList<VideoFrame> extractFrames(Context context, AssetManager assetManager) {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         AssetFileDescriptor assetFileDescriptor;
         try {
@@ -32,6 +33,8 @@ public class VideoFrameExtractor {
         long videoDuration = Long.parseLong(duration);
 
         long currentTime = 0;
+
+        ArrayList<VideoFrame> videoFrames = new ArrayList<>();
 
         while (currentTime < videoDuration) {
             Bitmap frame = retriever.getFrameAtTime(currentTime * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
@@ -51,6 +54,7 @@ public class VideoFrameExtractor {
 
             // 프레임 이미지 저장
             if (ImageUtils.saveBitmapToFile(resizedFrame, file.getAbsolutePath())) {
+                videoFrames.add(new VideoFrame(file));
                 System.out.println("프레임 파일이 성공적으로 저장되었습니다.");
             } else {
                 System.out.println("프레임 파일 저장에 실패했습니다.");
@@ -68,6 +72,7 @@ public class VideoFrameExtractor {
         }
 
 
+        return videoFrames;
     }
 
 }
