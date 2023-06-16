@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class RunningFeedbackActivity extends AppCompatActivity {
+
+    //현재 날짜 띄우기
+    private TextView dateText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,21 @@ public class RunningFeedbackActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // 레이아웃에서 날짜를 표시할 텍스트뷰 가져오기
+        dateText = findViewById(R.id.dateText);
+
+        // 현재 날짜 가져오기
+        Date currentDate = new Date();
+
+        // 날짜 형식 설정
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        // 형식화된 날짜 문자열 생성
+        String formattedDate = dateFormat.format(currentDate);
+
+        // 텍스트뷰에 날짜 설정
+        dateText.setText(formattedDate);
 
         //착지하는 무릎각도 text
         //intent로 return값 받아오기
