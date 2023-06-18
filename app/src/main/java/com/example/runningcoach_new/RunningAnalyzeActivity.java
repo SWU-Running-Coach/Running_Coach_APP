@@ -1,5 +1,7 @@
 package com.example.runningcoach_new;
 
+import static java.lang.Math.abs;
+
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -74,17 +76,27 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
         try {
             analyzeResult = movenet.MoveNetClass(assetManager, "lite-model_movenet_singlepose_thunder_3.tflite", ok_videoFrames);
 
-            i = 0;
-            while (i < analyzeResult.size())
-            {
-                System.out.println(i + "번째 다리 각도 : " + analyzeResult.get(i).getLegAngle());
-                System.out.println(i + "번째 상체 각도 : " + analyzeResult.get(i).getUppderBodyAngle());
-                i++;
-            }
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        double worstLegAngle = 0;
+        int worstLegAngleIndex = -1;
+
+        i = 0;
+        while (i < analyzeResult.size())
+        {
+            if (worstLegAngle < abs(analyzeResult.get(i).getLegAngle() - 155)) {
+                worstLegAngle = abs(analyzeResult.get(i).getLegAngle() - 155);
+                worstLegAngleIndex = i;
+            }
+            System.out.println(i + "번째 다리 각도 : " + analyzeResult.get(i).getLegAngle());
+            System.out.println(i + "번째 상체 각도 : " + analyzeResult.get(i).getUppderBodyAngle());
+            i++;
+        }
+
+        System.out.println("최악의 다리 각도 인덱스 : " + worstLegAngleIndex + " 다리 각도 : " + analyzeResult.get(worstLegAngleIndex).getLegAngle());
+
 
 //                //이미지 시각화 위해 잠시 사용, 추후 삭제
 //                if (imageView != null) {
@@ -97,11 +109,17 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
 
         //달리기 피드백 화면으로 이동
         ImageButton btnGofeedback = (ImageButton) findViewById(R.id.btnGofeedback);
+        ArrayList<AnalyzeResult> finalAnalyzeResult = analyzeResult;
+        int finalWorstLegAngleIndex = worstLegAngleIndex;
         btnGofeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RunningFeedbackActivity.class);
                 //각도 데이터를 intent로 전달
+                intent.putExtra("image", finalAnalyzeResult.get(finalWorstLegAngleIndex).getBitmap());
+                intent.putExtra("LegAngle", finalAnalyzeResult.get(finalWorstLegAngleIndex).getLegAngle());
+                intent.putExtra("UpdderBodyAngle", finalAnalyzeResult.get(finalWorstLegAngleIndex).getUppderBodyAngle());
+
 //                intent.putExtra("name",@@@@.getText().toString());
                 startActivity(intent);
             }
