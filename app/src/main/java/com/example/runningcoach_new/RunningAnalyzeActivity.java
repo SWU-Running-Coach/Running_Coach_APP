@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.AbstractList;
+import java.util.ArrayList;
 
 public class RunningAnalyzeActivity extends AppCompatActivity {
 
@@ -37,7 +39,7 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
         VideoFrameExtractor frameExtractor = new VideoFrameExtractor();
         // extractFrames 메서드 호출
         AssetManager manager = getAssets();
-        VideoFrameExtractor.extractFrames(getApplicationContext(), manager);
+        ArrayList<VideoFrame> videoFrames =VideoFrameExtractor.extractFrames(getApplicationContext(), manager);
 
         //뒤로가기 버튼
         ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);
@@ -53,21 +55,36 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
         AssetManager assetManager = getAssets();
         classifier = new Classifier(assetManager);
 
-        // 이미지 파일 로드 및 분류 작업 수행
-        try {
-            Bitmap image = loadImageFromAssets("ok_data108.jpg");
+        ArrayList<VideoFrame> ok_videoFrames = new ArrayList<>();
+
+        int i = 0;
+        while (i< videoFrames.size()) {
+            // 이미지 파일 로드 및 분류 작업 수행
+            Bitmap image = BitmapFactory.decodeFile(videoFrames.get(i).getFile().getAbsolutePath());
             String result = classifier.classifyImage(image);
 
-            System.out.println(result);
-
-            // 분류 결과 처리
-
             if (result == "OK")
+                ok_videoFrames.add(videoFrames.get(i));
+
+            i++;
+        }
+
+        movenet = new MoveNet();
+        ArrayList<AnalyzeResult> analyzeResult = null;
+        try {
+            analyzeResult = movenet.MoveNetClass(assetManager, "lite-model_movenet_singlepose_thunder_3.tflite", ok_videoFrames);
+
+            i = 0;
+            while (i < analyzeResult.size())
             {
-                //1. openpose를 사용하여 키 포인트 추출하기
-                movenet = new MoveNet();
-                AnalyzeResult analyzeResult = movenet.MoveNetClass(assetManager, "lite-model_movenet_singlepose_thunder_3.tflite",
-                              image.getWidth(), image.getHeight(), image);
+                System.out.println(i + "번째 다리 각도 : " + analyzeResult.get(i).getLegAngle());
+                System.out.println(i + "번째 상체 각도 : " + analyzeResult.get(i).getUppderBodyAngle());
+                i++;
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 //                //이미지 시각화 위해 잠시 사용, 추후 삭제
 //                if (imageView != null) {
@@ -76,14 +93,6 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
 //                    System.out.println("상체 각도 : " + analyzeResult.getUppderBodyAngle());
 //                }
 
-                //2. 추출된 키포인트로 각도 계산하기
-                //movenet.MoveNetClass 실행시, 각도 계산까지 완료
-                //이후 각도를 통해 자세 분류 예정
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
 
         //달리기 피드백 화면으로 이동

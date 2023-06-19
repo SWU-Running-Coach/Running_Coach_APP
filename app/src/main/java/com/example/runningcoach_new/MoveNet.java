@@ -3,6 +3,7 @@ package com.example.runningcoach_new;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -26,17 +27,28 @@ public class MoveNet{
 
     }
 
-    public AnalyzeResult MoveNetClass(AssetManager assetManager, String modelPath, int inputImageWidth, int inputImageHeight, Bitmap bitmap) throws IOException {
+    public ArrayList<AnalyzeResult> MoveNetClass(AssetManager assetManager, String modelPath, ArrayList<VideoFrame> videoFrames) throws IOException {
         // 모델 로드
         MappedByteBuffer modelBuffer = loadModelFile(assetManager, modelPath);
         interpreter = new Interpreter(modelBuffer);
 
-        // 이미지 전처리
-        imageProcessor = new ImagePreprocessor(inputImageWidth, inputImageHeight);
+        int i = 0;
 
-        AnalyzeResult result = new AnalyzeResult();
+        ArrayList<AnalyzeResult> result = new ArrayList<AnalyzeResult>();
 
-        runInference(bitmap, result);
+        while (i < videoFrames.size())
+        {
+            Bitmap bitmap = BitmapFactory.decodeFile(videoFrames.get(i).getFile().getAbsolutePath());
+            // 이미지 전처리
+            imageProcessor = new ImagePreprocessor(bitmap.getWidth(), bitmap.getHeight());
+            AnalyzeResult tmp = new AnalyzeResult();
+
+            runInference(bitmap, tmp);
+
+            result.add(tmp);
+            i++;
+        }
+
 
         return result;
     }
