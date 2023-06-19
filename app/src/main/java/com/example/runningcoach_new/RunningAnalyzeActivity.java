@@ -24,6 +24,8 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
     private Classifier classifier;
     private MoveNet movenet;
 
+    private Cadence cadence;
+
 //    private ImageView imageView;
 
     @Override
@@ -42,6 +44,7 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
         // extractFrames 메서드 호출
         AssetManager manager = getAssets();
         ArrayList<VideoFrame> videoFrames =VideoFrameExtractor.extractFrames(getApplicationContext(), manager);
+
 
         //뒤로가기 버튼
         ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);
@@ -105,6 +108,15 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
 //                    System.out.println("상체 각도 : " + analyzeResult.getUppderBodyAngle());
 //                }
 
+        // Cadence 인스턴스 생성
+        cadence = new Cadence();
+
+        // 교차 횟수 계산
+        int crossCount = cadence.calculateCrossCount(manager, videoFrames);
+
+        // 교차 횟수 출력
+        System.out.println("왼발과 오른발의 좌표 교차 횟수: " + crossCount);
+
 
 
         //달리기 피드백 화면으로 이동
@@ -120,7 +132,6 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
                 intent.putExtra("LegAngle", finalAnalyzeResult.get(finalWorstLegAngleIndex).getLegAngle());
                 intent.putExtra("UpdderBodyAngle", finalAnalyzeResult.get(finalWorstLegAngleIndex).getUppderBodyAngle());
 
-//                intent.putExtra("name",@@@@.getText().toString());
                 startActivity(intent);
             }
         });
