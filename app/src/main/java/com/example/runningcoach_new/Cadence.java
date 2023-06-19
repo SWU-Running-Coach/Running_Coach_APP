@@ -29,8 +29,8 @@ public class Cadence {
 
         for (AnalyzeResult result : analyzeResults) {
             ArrayList<Joint> joints = result.getJoints();
-            Joint leftFoot = getJointByName(joints, "left_foot");
-            Joint rightFoot = getJointByName(joints, "right_foot");
+            Joint leftFoot = getJointByName(joints, "left ankle");
+            Joint rightFoot = getJointByName(joints, "right ankle");
 
             if (leftFoot != null && rightFoot != null) {
                 if (leftFoot.getX() < rightFoot.getX() && !isLeftFootCrossed) {
