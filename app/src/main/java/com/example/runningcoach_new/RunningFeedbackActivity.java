@@ -1,9 +1,11 @@
 package com.example.runningcoach_new;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
@@ -44,31 +46,73 @@ public class RunningFeedbackActivity extends AppCompatActivity {
         // 텍스트뷰에 날짜 설정
         dateText.setText(formattedDate);
 
+        //worst 이미지 띄우기
+        Bitmap receivedImage;
+        ImageView feedbackview = findViewById(R.id.feedbackview);
+        // Intent에서 이미지 데이터 가져오기
+        if (intent != null) {
+            receivedImage = intent.getParcelableExtra("image");
+            feedbackview.setImageBitmap(receivedImage);
+        }
+
+
+
         //착지하는 무릎각도 text
         //intent로 return값 받아오기
+        //Bitmap image = intentdata.getParcelableExtra("image");
+        double legAngleDouble  = intent.getDoubleExtra("LegAngle", 0.0f);
+        float legAngle = (float) legAngleDouble;
+        double upperBodyAngleDouble = intent.getDoubleExtra("UpdderBodyAngle", 0.0f);
+        float upperBodyAngle = (float) upperBodyAngleDouble;
+
+        //하체각도 text
         //피드백 제시
-        TextView textView2 = (TextView) findViewById(R.id.textView2) ;
-//        if (각도<150){
-//            textView2.setText("150˚~160˚가 되도록 무릎을 더 펴서 달리세요") ;
-//        } else if (각도>=150 && 각도<=160) {
-//            textView2.setText("무릎의 각도가 150˚~160˚ 사이에 있어 좋은 자세입니다.") ;
-//        } else if (각도<160) {
-//            textView2.setText("150˚~160˚가 되도록 무릎을 더 굽혀서 달리세요") ;
-//        }
-        textView2.setText("무릎각도에 따른 피드백") ;
+        TextView txtKneeAngle = findViewById(R.id.txt_kneeangle);
+        TextView textView2 = findViewById(R.id.textView2);
+        txtKneeAngle.setText(legAngle + "˚");
+        if (legAngle < 150) {
+            textView2.setText("150˚~160˚가 되도록 무릎을 더 펴서 달리세요");
+        } else if (legAngle >= 150 && legAngle <= 160) {
+            textView2.setText("무릎의 각도가 150˚~160˚ 사이에 있어 좋은 자세입니다.");
+        } else if (legAngle > 160) {
+            textView2.setText("150˚~160˚가 되도록 무릎을 더 굽혀서 달리세요");
+        }
+        //textView2.setText("무릎각도에 따른 피드백");
 
         //상체각도 text
-        //intent로 return값 받아오기
-        //피드백 제시
-        TextView textView3 = (TextView) findViewById(R.id.textView3) ;
-//        if (각도<4){
-//            textView2.setText("4˚~10˚가 되도록 상체를 더 펴서 달리세요") ;
-//        } else if (각도>=4 && 각도<=10) {
-//            textView2.setText("상체의 각도가 4˚~10˚ 사이에 있어 좋은 자세입니다.") ;
-//        } else if (각도<10) {
-//            textView2.setText("4˚~10˚가 되도록 상체를 더 굽혀서 달리세요") ;
-//        }
-        textView3.setText("상체각도에 따른 피드백") ;
+        // 피드백 제시
+        TextView txtUpperAngle = findViewById(R.id.txt_upperangle);
+        TextView textView3 = findViewById(R.id.textView3);
+        txtUpperAngle.setText(upperBodyAngle + "˚");
+        if (upperBodyAngle < 4) {
+            textView3.setText("4˚~10˚가 되도록 상체를 더 펴서 달리세요");
+        } else if (upperBodyAngle >= 4 && upperBodyAngle <= 10) {
+            textView3.setText("상체의 각도가 4˚~10˚ 사이에 있어 좋은 자세입니다.");
+        } else if (upperBodyAngle > 10) {
+            textView3.setText("4˚~10˚가 되도록 상체를 더 굽혀서 달리세요");
+        }
+        //textView3.setText("상체각도에 따른 피드백");
+
+        //케이던스 intent로 받기
+        int receivedCadenceCount = getIntent().getIntExtra("cadenceCount", 0);
+        // 케이던스 피드백 설정
+        TextView txt_cadencefeedback = findViewById(R.id.txt_cadencefeedback);
+        TextView txt_cadenceup = findViewById(R.id.txt_cadenceup);
+        TextView txt_after = findViewById(R.id.txt_after);
+
+        txt_after.setText(String.valueOf(receivedCadenceCount));
+
+        txt_cadencefeedback.setText("이전에 저장된 케이던스 데이터가 없습니다.");
+
+        //추후에 data 저장하면 코드 변경
+        txt_cadencefeedback.setText("이전에 저장된 케이던스 데이터가 없습니다.");
+
+        //5% 증가된 케이던스 수치 피드백
+        int CadenceUp = (int) (receivedCadenceCount * 1.05); // 5% 증가된 수치 계산
+        txt_cadenceup.setText("5% 향상된 수치는 " + CadenceUp + "입니다.");
+
+
+
 
 
 
