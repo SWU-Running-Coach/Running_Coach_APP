@@ -117,12 +117,17 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
         // 교차 횟수 출력
         System.out.println("왼발과 오른발의 좌표 교차 횟수: " + crossCount);
 
+        //케이던스 계산
+        int cadenceCount = 0;
+        cadenceCount=crossCount*4;
+        System.out.println("케이던스: " + cadenceCount);
 
 
         //달리기 피드백 화면으로 이동
         ImageButton btnGofeedback = (ImageButton) findViewById(R.id.btnGofeedback);
         ArrayList<AnalyzeResult> finalAnalyzeResult = analyzeResult;
         int finalWorstLegAngleIndex = worstLegAngleIndex;
+        int finalCadenceCount = cadenceCount;
         btnGofeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,6 +136,7 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
                 intent.putExtra("image", finalAnalyzeResult.get(finalWorstLegAngleIndex).getBitmap());
                 intent.putExtra("LegAngle", finalAnalyzeResult.get(finalWorstLegAngleIndex).getLegAngle());
                 intent.putExtra("UpdderBodyAngle", finalAnalyzeResult.get(finalWorstLegAngleIndex).getUppderBodyAngle());
+                intent.putExtra("cadenceCount", finalCadenceCount);
 
                 startActivity(intent);
             }

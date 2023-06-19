@@ -128,6 +128,7 @@ public class MoveNet{
 
             //Joint 객체 추가
             joints.add(new Joint(i, jointName[i], x, y));
+            result.setJoints(joints);
         }
 
         //스켈레톤 선 그리기
