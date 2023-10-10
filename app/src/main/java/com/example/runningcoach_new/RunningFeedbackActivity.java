@@ -56,8 +56,6 @@ public class RunningFeedbackActivity extends AppCompatActivity {
         }
 
 
-
-        //착지하는 무릎각도 text
         //intent로 return값 받아오기
         //Bitmap image = intentdata.getParcelableExtra("image");
         double legAngleDouble  = intent.getDoubleExtra("LegAngle", 0.0f);
@@ -101,8 +99,6 @@ public class RunningFeedbackActivity extends AppCompatActivity {
         TextView txt_after = findViewById(R.id.txt_after);
 
         txt_after.setText(String.valueOf(receivedCadenceCount));
-
-        txt_cadencefeedback.setText("이전에 저장된 케이던스 데이터가 없습니다.");
 
         //추후에 data 저장하면 코드 변경
         txt_cadencefeedback.setText("이전에 저장된 케이던스 데이터가 없습니다.");

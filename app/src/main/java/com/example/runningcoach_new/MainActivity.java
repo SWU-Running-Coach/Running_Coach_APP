@@ -51,12 +51,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //버튼
+        //비디오 업로드 버튼 테스트
         Button imageButton = (Button) findViewById(R.id.goVideoUpload);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), VideoUploadActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //로그인 화면 테스트
+        Button goLogin = (Button) findViewById(R.id.gologinbtn);
+        goLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+            }
+        });
+
+        //회원가입 화면 테스트
+        Button gojoin = (Button) findViewById(R.id.gojoinbtn);
+        gojoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Register.class);
                 startActivity(intent);
             }
         });
