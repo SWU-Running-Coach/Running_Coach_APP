@@ -52,17 +52,17 @@ tools:context=".Register">
         android:layout_gravity="center"
         android:ems="10"
         android:inputType="text"
-        android:text="이메일"/>
+        android:hint="이메일"/>
 
     <EditText
-        android:id="@+id/idText"
+        android:id="@+id/nicknameText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:ems="10"
         android:inputType="text"
-        android:text="닉네임"/>
+        android:hint="닉네임"/>
 
     <EditText
         android:id="@+id/pwText"
@@ -72,11 +72,18 @@ tools:context=".Register">
         android:layout_gravity="center"
         android:ems="10"
         android:inputType="text"
-        android:text="비밀번호"/>
+        android:hint="비밀번호"/>
 
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="※ 비밀번호는 6자 이상으로 설정해주세요." />
 
     <ImageButton
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -84,7 +91,7 @@ tools:context=".Register">
         android:scaleX="1.2"
         android:scaleY="1.2"
         android:layout_marginTop="50dp"
-        app:srcCompat="@drawable/loginbutton" />
+        app:srcCompat="@drawable/register" />
 
 
 </LinearLayout>

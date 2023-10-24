@@ -51,7 +51,7 @@ tools:context=".Login">
         android:layout_marginTop="70dp"
         android:ems="10"
         android:inputType="text"
-        android:text="이메일" />
+        android:hint="이메일" />
 
     <EditText
         android:id="@+id/passwordText"
@@ -60,7 +60,7 @@ tools:context=".Login">
         android:layout_gravity="center"
         android:ems="10"
         android:inputType="textPassword"
-        android:text="비밀번호"/>
+        android:hint="비밀번호"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

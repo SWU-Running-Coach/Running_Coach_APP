@@ -72,13 +72,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //회원가입 화면 테스트
-        Button gojoin = (Button) findViewById(R.id.gojoinbtn);
-        gojoin.setOnClickListener(new View.OnClickListener() {
+        Button goJoin = (Button) findViewById(R.id.gojoinbtn);
+        goJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Register.class);
                 startActivity(intent);
             }
         });
+
+        //마이페이지 화면 테스트
+        Button goMypage = (Button) findViewById(R.id.gomypagebtn);
+        goMypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Mypage.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
