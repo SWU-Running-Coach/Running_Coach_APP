@@ -91,5 +91,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //스트레칭 화면 테스트
+        Button goStretching = (Button) findViewById(R.id.gostretchingbtn);
+        goStretching.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), StretchingActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

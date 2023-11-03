@@ -20,12 +20,13 @@ public class VideoFrameExtractor {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         AssetFileDescriptor assetFileDescriptor;
         try {
-            assetFileDescriptor = assetManager.openFd("videorun.mp4");
+            assetFileDescriptor = assetManager.openFd("videonew.mp4");
             retriever.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
             assetFileDescriptor.close();
         } catch (IOException e){
             e.printStackTrace();
         }
+
 
         String duration = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
 
