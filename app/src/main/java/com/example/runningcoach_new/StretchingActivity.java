@@ -2,6 +2,7 @@ package com.example.runningcoach_new;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -29,6 +30,11 @@ public class StretchingActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // 카메라 권한 요청
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 101);
+        }
 
     }
 
