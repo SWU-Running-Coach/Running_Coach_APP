@@ -4,9 +4,11 @@ import static java.lang.Math.abs;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -37,18 +39,25 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
 //        setContentView(R.layout.bitmap);
 //        imageView = findViewById(R.id.imageView_bitmap);
 
+
         //동영상 프레임 분할을 위한 테스트(임시), 추후 삭제
-        // 비디오 Uri 생성
         // VideoFrameExtractor 인스턴스 생성
         VideoFrameExtractor frameExtractor = new VideoFrameExtractor();
         // extractFrames 메서드 호출
+        Intent intent=getIntent();
+        Uri fileUri = intent.getData();
+        //String fileUri = getIntent().getStringExtra("fileuri");
+        System.out.println("1111 : " + fileUri);
+        System.out.println("3333: " + getIntent().getData());
+        System.out.println("4444: " + getIntent().getDataString());
+        System.out.println("5555: " + getIntent());
         AssetManager manager = getAssets();
-        ArrayList<VideoFrame> videoFrames =VideoFrameExtractor.extractFrames(getApplicationContext(), manager);
+        ArrayList<VideoFrame> videoFrames =VideoFrameExtractor.extractFrames(getApplicationContext(), manager, fileUri);
 
 
         //뒤로가기 버튼
         ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);
-        Intent intent=getIntent();
+//        Intent intent=getIntent();
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,5 +159,8 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
         InputStream inputStream = getAssets().open(fileName);
         return BitmapFactory.decodeStream(inputStream);
     }
+
+
+
 
 }

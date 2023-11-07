@@ -1,7 +1,9 @@
 package com.example.runningcoach_new;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 public class VideoUploadActivity extends AppCompatActivity {
 
     VideoView uploadVideoView;
+
+    Intent intenturi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +63,8 @@ public class VideoUploadActivity extends AppCompatActivity {
         btnGoanalyze.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RunningAnalyzeActivity.class);
-                startActivity(intent);
+               // Intent intent = new Intent(getApplicationContext(), RunningAnalyzeActivity.class);
+                startActivity(intenturi);
             }
         });
     }
@@ -74,8 +78,11 @@ public class VideoUploadActivity extends AppCompatActivity {
                 uploadVideoView.setVideoPath(String.valueOf(fileUri));    // 선택한 비디오 경로 비디오뷰에 셋
                 uploadVideoView.start();  // 비디오뷰 시작
 
-//                Intent intenturi = new Intent(getApplicationContext(), VideoFrameExtractor.class);
-//                intenturi.setData(fileUri);
+                 intenturi = new Intent(getApplicationContext(), RunningAnalyzeActivity.class);
+//
+                System.out.println("2222 : " + fileUri);
+                intenturi.setData(fileUri);
+
             }
         }
     }
