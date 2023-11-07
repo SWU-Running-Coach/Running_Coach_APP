@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class VideoUploadActivity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class VideoUploadActivity extends AppCompatActivity {
             }
         });
 
-        //업로드 버튼
+        //업로드 버튼, 여기 수정해야함
         uploadVideoView = findViewById(R.id.uploadVideoView);
         ImageButton btnVideoupload = (ImageButton) findViewById(R.id.btnVideoupload);
         btnVideoupload.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +74,7 @@ public class VideoUploadActivity extends AppCompatActivity {
                 uploadVideoView.setVideoPath(String.valueOf(fileUri));    // 선택한 비디오 경로 비디오뷰에 셋
                 uploadVideoView.start();  // 비디오뷰 시작
 
-//                Intent intenturi = new Intent(getApplicationContext(), RunningAnalyzeActivity.class);
+//                Intent intenturi = new Intent(getApplicationContext(), VideoFrameExtractor.class);
 //                intenturi.setData(fileUri);
             }
         }

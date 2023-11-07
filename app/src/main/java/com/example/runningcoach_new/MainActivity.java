@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //버튼
+        //비디오 업로드 버튼 테스트
         Button imageButton = (Button) findViewById(R.id.goVideoUpload);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,5 +60,46 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //로그인 화면 테스트
+        Button goLogin = (Button) findViewById(R.id.gologinbtn);
+        goLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+            }
+        });
+
+        //회원가입 화면 테스트
+        Button goJoin = (Button) findViewById(R.id.gojoinbtn);
+        goJoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Register.class);
+                startActivity(intent);
+            }
+        });
+
+        //마이페이지 화면 테스트
+        Button goMypage = (Button) findViewById(R.id.gomypagebtn);
+        goMypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Mypage.class);
+                startActivity(intent);
+            }
+        });
+
+        //스트레칭 화면 테스트
+        Button goStretching = (Button) findViewById(R.id.gostretchingbtn);
+        goStretching.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), StretchingActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
