@@ -41,19 +41,19 @@ public class StretchingActivity extends AppCompatActivity implements CameraBridg
 
     private Interpreter interpreter;
     private ImagePreprocessor imageProcessor;
-    private CameraBridgeViewBase mOpenCvCameraView;
+//    private CameraBridgeViewBase mOpenCvCameraView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stretching);
 
-//        surfaceView=findViewById(R.id.surfaceView);
-
-        mOpenCvCameraView = findViewById(R.id.surfaceView);
-        mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
-        mOpenCvCameraView.setCvCameraViewListener(this);
-        mOpenCvCameraView.setCameraIndex(1);
+        surfaceView=findViewById(R.id.surfaceView);
+//
+//        mOpenCvCameraView = findViewById(R.id.surfaceView);
+//        mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
+//        mOpenCvCameraView.setCvCameraViewListener(this);
+//        mOpenCvCameraView.setCameraIndex(1);
         //뒤로가기 버튼
         ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);
         Intent intent = getIntent();
@@ -74,18 +74,18 @@ public class StretchingActivity extends AppCompatActivity implements CameraBridg
         else
             Log.e("test", "opencv 성공");
 
-        mOpenCvCameraView.enableView();
+//        mOpenCvCameraView.enableView();
 
 //         ViewTreeObserver를 사용하여 surfaceView 크기 측정 대기
-         ViewTreeObserver viewTreeObserver = mOpenCvCameraView.getViewTreeObserver();
+         ViewTreeObserver viewTreeObserver = surfaceView.getViewTreeObserver();
         viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
-                int width = mOpenCvCameraView.getWidth();
-                int height = mOpenCvCameraView.getHeight();
+                int width = surfaceView.getWidth();
+                int height = surfaceView.getHeight();
 
                 // 크기가 측정되면 이 리스너를 제거
-                mOpenCvCameraView.getViewTreeObserver().removeOnPreDrawListener(this);
+                surfaceView.getViewTreeObserver().removeOnPreDrawListener(this);
 
                 Log.e("test", "width : " + width + " height : " +height);
 
@@ -109,7 +109,7 @@ public class StretchingActivity extends AppCompatActivity implements CameraBridg
 
 
         // 이미지 전처리
-        Bitmap bitmap = Bitmap.createBitmap(mOpenCvCameraView.getWidth(), mOpenCvCameraView.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(surfaceView.getWidth(), surfaceView.getHeight(), Bitmap.Config.ARGB_8888);
         imageProcessor = new ImagePreprocessor(bitmap.getWidth(), bitmap.getHeight());
 
         Bitmap result = runInference(bitmap);
