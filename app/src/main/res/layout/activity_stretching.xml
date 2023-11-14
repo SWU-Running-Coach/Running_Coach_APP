@@ -42,7 +42,7 @@ tools:context=".StretchingActivity">
         android:layout_gravity="center"
         android:layout_margin="20dp">
 
-        <com.example.runningcoach_new.CameraSurfaceView
+        <org.opencv.android.JavaCameraView
             android:layout_width="390dp"
             android:layout_height="420dp"
             android:id="@+id/surfaceView"/>

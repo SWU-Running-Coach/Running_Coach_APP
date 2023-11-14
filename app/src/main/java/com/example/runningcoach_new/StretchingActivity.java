@@ -16,12 +16,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.support.image.TensorImage;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
@@ -32,19 +36,24 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 
-public class StretchingActivity extends AppCompatActivity {
+public class StretchingActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
     CameraSurfaceView surfaceView;
 
     private Interpreter interpreter;
     private ImagePreprocessor imageProcessor;
+    private CameraBridgeViewBase mOpenCvCameraView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stretching);
 
-        surfaceView=findViewById(R.id.surfaceView);
+//        surfaceView=findViewById(R.id.surfaceView);
 
+        mOpenCvCameraView = findViewById(R.id.surfaceView);
+        mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
+        mOpenCvCameraView.setCvCameraViewListener(this);
+        mOpenCvCameraView.setCameraIndex(1);
         //뒤로가기 버튼
         ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);
         Intent intent = getIntent();
@@ -60,17 +69,23 @@ public class StretchingActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 101);
         }
 
+        if (!OpenCVLoader.initDebug())
+            Log.e("test", "opencv 실패");
+        else
+            Log.e("test", "opencv 성공");
 
-        // ViewTreeObserver를 사용하여 surfaceView 크기 측정 대기
-        ViewTreeObserver viewTreeObserver = surfaceView.getViewTreeObserver();
+        mOpenCvCameraView.enableView();
+
+//         ViewTreeObserver를 사용하여 surfaceView 크기 측정 대기
+         ViewTreeObserver viewTreeObserver = mOpenCvCameraView.getViewTreeObserver();
         viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
-                int width = surfaceView.getWidth();
-                int height = surfaceView.getHeight();
+                int width = mOpenCvCameraView.getWidth();
+                int height = mOpenCvCameraView.getHeight();
 
                 // 크기가 측정되면 이 리스너를 제거
-                surfaceView.getViewTreeObserver().removeOnPreDrawListener(this);
+                mOpenCvCameraView.getViewTreeObserver().removeOnPreDrawListener(this);
 
                 Log.e("test", "width : " + width + " height : " +height);
 
@@ -91,8 +106,10 @@ public class StretchingActivity extends AppCompatActivity {
 
         interpreter = new Interpreter(modelBuffer);
 
+
+
         // 이미지 전처리
-        Bitmap bitmap = Bitmap.createBitmap(surfaceView.getWidth(), surfaceView.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(mOpenCvCameraView.getWidth(), mOpenCvCameraView.getHeight(), Bitmap.Config.ARGB_8888);
         imageProcessor = new ImagePreprocessor(bitmap.getWidth(), bitmap.getHeight());
 
         Bitmap result = runInference(bitmap);
@@ -252,4 +269,24 @@ public class StretchingActivity extends AppCompatActivity {
         canvas.drawLine(startY, startX, endY, endX, paint);
     }
 
+    @Override
+    public void onCameraViewStarted(int width, int height) {
+        Log.e("test", "onCameraViewStarted width : " + width + " height : " + height);
+        imageProcessor = new ImagePreprocessor(width, height);
+    }
+
+    @Override
+    public void onCameraViewStopped() {
+
+    }
+
+    @Override
+    public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
+        return null;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 }
