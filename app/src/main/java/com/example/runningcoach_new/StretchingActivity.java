@@ -60,6 +60,7 @@ public class StretchingActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 101);
         }
 
+
         // ViewTreeObserver를 사용하여 surfaceView 크기 측정 대기
         ViewTreeObserver viewTreeObserver = surfaceView.getViewTreeObserver();
         viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
