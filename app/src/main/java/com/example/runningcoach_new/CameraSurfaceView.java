@@ -77,7 +77,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
         try {
             cameraManager = (CameraManager) getContext().getSystemService(Context.CAMERA_SERVICE);
-            cameraId = cameraManager.getCameraIdList()[0]; // 여기에서 적절한 카메라를 선택할 수 있습니다.
+            cameraId = cameraManager.getCameraIdList()[1]; // 여기에서 적절한 카메라를 선택할 수 있습니다.
 
             StreamConfigurationMap map = cameraManager.getCameraCharacteristics(cameraId)
                     .get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
