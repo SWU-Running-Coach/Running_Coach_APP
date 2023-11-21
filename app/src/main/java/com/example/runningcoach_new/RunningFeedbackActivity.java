@@ -4,22 +4,37 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.runningcoach_new.data.FeedbackData;
+import com.example.runningcoach_new.network.RetrofitClient;
+import com.example.runningcoach_new.network.ServiceApi;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RunningFeedbackActivity extends AppCompatActivity {
 
     //현재 날짜 띄우기
     private TextView dateText;
+    private ServiceApi service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running_feedback);
+
+        service = RetrofitClient.getClient().create(ServiceApi.class);
 
         //뒤로가기 버튼
         ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);
@@ -106,6 +121,35 @@ public class RunningFeedbackActivity extends AppCompatActivity {
         //5% 증가된 케이던스 수치 피드백
         int CadenceUp = (int) (receivedCadenceCount * 1.05); // 5% 증가된 수치 계산
         txt_cadenceup.setText("5% 향상된 수치는 " + CadenceUp + "입니다.");
+
+        //저장하기
+        ImageButton saveData = (ImageButton) findViewById(R.id.btnSave);
+        saveData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FeedbackData fbdata = new FeedbackData();
+                fbdata.setText(dateText.getText().toString());
+                service.postData(fbdata).enqueue(new Callback<FeedbackData>() {
+                    @Override
+                    public void onResponse(Call<FeedbackData> call, Response<FeedbackData> response) {
+                        if(response.isSuccessful()){
+                            Toast.makeText(RunningFeedbackActivity.this, "저장 성공", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<FeedbackData> call, Throwable t) {
+
+                    }
+
+//                Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+//                startActivity(intent);
+                });
+
+
+            }
+        });
 
 
 

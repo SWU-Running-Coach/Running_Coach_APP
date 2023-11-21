@@ -71,5 +71,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //캘린더 화면 테스트
+        Button goCalendar = (Button) findViewById(R.id.gocalendarbtn);
+        goCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
