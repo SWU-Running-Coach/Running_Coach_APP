@@ -8,18 +8,36 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class StretchingActivity extends AppCompatActivity {
     CameraSurfaceView surfaceView;
+
+    ImageView imageView;
+    TextView textView;
+    private int[] imageResources = {R.drawable.shoulder_l, R.drawable.shoulder_r, R.drawable.knee_l, R.drawable.knee_r, R.drawable.hip_l, R.drawable.hip_r, R.drawable.doublekick_l, R.drawable.doublekick_r,
+    R.drawable.sidekick_l, R.drawable.sidekick_r};
+    private String[] textResources = {"왼쪽 어깨 스트레칭", "오른쪽 어깨 스트레칭", "왼쪽 무릎 스트레칭", "오른쪽 무릎 스트레칭", "왼쪽 엉덩이 스트레칭", "오른쪽 엉덩이 스트레칭", "왼쪽 무릎 차기 스트레칭", "오른쪽 무릎 차기 스트레칭",
+            "왼쪽 옆차기 스트레칭", "오른쪽 옆차기 스트레칭"};
+
+    private int currentImageIndex = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stretching);
 
         surfaceView=findViewById(R.id.surfaceView);
+        imageView= findViewById(R.id.imageView3);
+        textView = findViewById(R.id.titletext);
 
         //뒤로가기 버튼
         ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);
@@ -36,6 +54,26 @@ public class StretchingActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 101);
         }
 
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateImage();
+                    }
+                });
+            }
+        }, 0, 15000); //15초마다 이미지 변경
+    }
+
+
+    private void updateImage() {
+        // 이미지를 변경하고 다음 인덱스로 이동
+        imageView.setImageResource(imageResources[currentImageIndex]);
+        textView.setText(textResources[currentImageIndex]);
+        currentImageIndex = (currentImageIndex + 1) % imageResources.length;
     }
 
     //카메라
