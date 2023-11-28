@@ -6,55 +6,119 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
 
-    <FrameLayout
-        android:id="@+id/containers"
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:background="#FFFFFF"
+            app:srcCompat="@drawable/faders" />
+
+        <ImageView
+            android:id="@+id/titleLogin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="30dp"
+            app:srcCompat="@drawable/home" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         android:layout_weight="1"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="220dp"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/goVideoUpload"
-                android:layout_width="match_parent"
+            <ImageButton
+                android:id="@+id/gostretchingbtn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="달리기 분석" />
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                app:srcCompat="@drawable/homestretch" />
+
+            <ImageButton
+                android:id="@+id/goVideoUpload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                app:srcCompat="@drawable/homerunning" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/gocalendarbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                app:srcCompat="@drawable/homecalendar" />
+
+            <ImageButton
+                android:id="@+id/gomypagebtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                app:srcCompat="@drawable/homemypage" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/gologinbtn"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="로그인 화면" />
+                android:text="로그인"
+                android:background="@color/white"
+                android:textColor="#4CAE50"/>
 
             <Button
                 android:id="@+id/gojoinbtn"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="회원가입 화면" />
-
-            <Button
-                android:id="@+id/gomypagebtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="마이페이지 화면" />
-
-            <Button
-                android:id="@+id/gostretchingbtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="스트레칭 화면" />
-            <Button
-                android:id="@+id/gocalendarbtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="캘린더 화면" />
+                android:text="회원가입"
+                android:background="@color/white"
+                android:textColor="#4CAE50"/>
         </LinearLayout>
-    </FrameLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -21,12 +22,52 @@ public class MainActivity extends AppCompatActivity {
 //        Intent intent = new Intent(getApplicationContext(), RunningAnalyzeActivity.class);
 //        startActivity(intent);
 
-        //비디오 업로드 버튼 테스트
-        Button imageButton = (Button) findViewById(R.id.goVideoUpload);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        //뒤로가기 버튼
+        ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);
+        Intent intent = getIntent();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        //스트레칭 화면 테스트
+        ImageButton goStretching = (ImageButton) findViewById(R.id.gostretchingbtn);
+        goStretching.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), StretchingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //달리기 분석 버튼 테스트
+        ImageButton goVideo = (ImageButton) findViewById(R.id.goVideoUpload);
+        goVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), VideoUploadActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //캘린더 화면 테스트
+        ImageButton goCalendar = (ImageButton) findViewById(R.id.gocalendarbtn);
+        goCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //마이페이지 화면 테스트
+        ImageButton goMypage = (ImageButton) findViewById(R.id.gomypagebtn);
+        goMypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Mypage.class);
                 startActivity(intent);
             }
         });
@@ -51,35 +92,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //마이페이지 화면 테스트
-        Button goMypage = (Button) findViewById(R.id.gomypagebtn);
-        goMypage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Mypage.class);
-                startActivity(intent);
-            }
-        });
 
-        //스트레칭 화면 테스트
-        Button goStretching = (Button) findViewById(R.id.gostretchingbtn);
-        goStretching.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), StretchingActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        //캘린더 화면 테스트
-        Button goCalendar = (Button) findViewById(R.id.gocalendarbtn);
-        goCalendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 }
