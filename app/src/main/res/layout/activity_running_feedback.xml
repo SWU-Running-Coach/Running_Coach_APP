@@ -98,7 +98,10 @@
                         android:id="@+id/txt_kneeangle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0" />
+                        android:layout_weight="0"
+                        android:textColor="#ff0000"
+                        android:textStyle="bold"
+                        android:textSize="17dp"/>
 
                 </LinearLayout>
 
@@ -106,7 +109,10 @@
                     android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="피드백" />
+                    android:text="피드백"
+                    android:textStyle="bold"
+                    android:textColor="#ff0000"
+                    android:textSize="17dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -141,7 +147,10 @@
                         android:id="@+id/txt_upperangle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0" />
+                        android:layout_weight="0"
+                        android:textStyle="bold"
+                        android:textSize="17dp"
+                        android:textColor="#ff0090"/>
 
                 </LinearLayout>
 
@@ -149,7 +158,10 @@
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="피드백" />
+                    android:text="피드백"
+                    android:textStyle="bold"
+                    android:textColor="#ff0090"
+                    android:textSize="17dp" />
             </LinearLayout>
 
             <ImageView
@@ -221,7 +233,9 @@
                         android:id="@+id/txt_cadencefeedback"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0" />
+                        android:layout_weight="0"
+                        android:textStyle="bold"
+                        android:textSize="17dp"/>
 
                 </LinearLayout>
 
@@ -242,7 +256,9 @@
                         android:id="@+id/txt_cadenceup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0" />
+                        android:layout_weight="0"
+                        android:textStyle="bold"
+                        android:textSize="17dp"/>
 
                 </LinearLayout>
 
@@ -263,7 +279,9 @@
                         android:id="@+id/txt_cadencegoal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0" />
+                        android:layout_weight="0"
+                        android:textStyle="bold"
+                        android:textSize="17dp"/>
 
                 </LinearLayout>
 
@@ -284,27 +302,27 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="40dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/score_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/goodscore" />
 
                 <TextView
                     android:id="@+id/txt_running_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="70"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+                    android:text="완벽합니다!"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="25dp" />
 
-                <ImageView
-                    android:id="@+id/imageView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/slash" />
 
-                <ImageView
-                    android:id="@+id/imageView16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/jum" />
             </LinearLayout>
 
             <ImageButton
