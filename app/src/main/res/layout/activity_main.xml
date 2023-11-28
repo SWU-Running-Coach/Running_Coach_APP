@@ -24,7 +24,7 @@
                 android:id="@+id/goVideoUpload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="달리기 분석" />
 
             <Button
                 android:id="@+id/gologinbtn"
@@ -49,17 +49,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="스트레칭 화면" />
+            <Button
+                android:id="@+id/gocalendarbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="캘린더 화면" />
         </LinearLayout>
     </FrameLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigationview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:itemBackground="@color/maingreen"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/menu_bottom" />
-
 
 </LinearLayout>

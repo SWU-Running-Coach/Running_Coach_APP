@@ -43,9 +43,9 @@ tools:context=".StretchingActivity">
         android:layout_margin="20dp">
 
         <com.example.runningcoach_new.CameraSurfaceView
+            android:id="@+id/surfaceView"
             android:layout_width="390dp"
-            android:layout_height="420dp"
-            android:id="@+id/surfaceView"/>
+            android:layout_height="420dp" />
 
     </FrameLayout>
 
