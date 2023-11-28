@@ -1,5 +1,6 @@
 package com.example.runningcoach_new;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -98,11 +99,11 @@ public class RunningFeedbackActivity extends AppCompatActivity {
         TextView textView3 = findViewById(R.id.textView3);
         txtUpperAngle.setText(upperBodyAngle + "˚");
         if (upperBodyAngle < 4) {
-            textView3.setText("4˚~10˚가 되도록 상체를 더 펴서 달리세요");
+            textView3.setText("4˚~10˚가 되도록 상체를 더 굽혀서 달리세요");
         } else if (upperBodyAngle >= 4 && upperBodyAngle <= 10) {
             textView3.setText("상체의 각도가 4˚~10˚ 사이에 있어 좋은 자세입니다.");
         } else if (upperBodyAngle > 10) {
-            textView3.setText("4˚~10˚가 되도록 상체를 더 굽혀서 달리세요");
+            textView3.setText("4˚~10˚가 되도록 상체를 더 펴서 달리세요");
         }
         //textView3.setText("상체각도에 따른 피드백");
 
@@ -112,6 +113,7 @@ public class RunningFeedbackActivity extends AppCompatActivity {
         TextView txt_cadencefeedback = findViewById(R.id.txt_cadencefeedback);
         TextView txt_cadenceup = findViewById(R.id.txt_cadenceup);
         TextView txt_after = findViewById(R.id.txt_after);
+        TextView txt_cadencegoal = findViewById(R.id.txt_cadencegoal);
 
         txt_after.setText(String.valueOf(receivedCadenceCount));
 
@@ -121,6 +123,42 @@ public class RunningFeedbackActivity extends AppCompatActivity {
         //5% 증가된 케이던스 수치 피드백
         int CadenceUp = (int) (receivedCadenceCount * 1.05); // 5% 증가된 수치 계산
         txt_cadenceup.setText("5% 향상된 수치는 " + CadenceUp + "입니다.");
+        txt_cadencegoal.setText("목표 케이던스까지 " + (CadenceUp-receivedCadenceCount) + "남았습니다.");
+
+        //달리기 자세 평가
+        // 피드백 제시
+        ImageView runningScore = findViewById(R.id.score_image);
+        TextView txtRunningScore = findViewById(R.id.txt_running_score);
+        //나쁜점수
+        if (upperBodyAngle < 4 && legAngle < 150) {
+            runningScore.setImageResource(R.drawable.badscore);
+            txtRunningScore.setText("분발하세요!");
+        } else if (upperBodyAngle < 4 && legAngle > 160) {
+            runningScore.setImageResource(R.drawable.badscore);
+            txtRunningScore.setText("분발하세요!");
+        } else if (upperBodyAngle > 10 && legAngle < 150) {
+            runningScore.setImageResource(R.drawable.badscore);
+            txtRunningScore.setText("분발하세요!");
+        }else if (upperBodyAngle > 10 && legAngle > 160) {
+            runningScore.setImageResource(R.drawable.badscore);
+            txtRunningScore.setText("분발하세요!");
+        } else if (upperBodyAngle >= 4 && upperBodyAngle <= 10 && legAngle < 150) {
+            runningScore.setImageResource(R.drawable.neutralscore);
+            txtRunningScore.setText("약간 아쉽군요!");
+        } else if (upperBodyAngle >= 4 && upperBodyAngle <= 10 && legAngle > 160) {
+            runningScore.setImageResource(R.drawable.neutralscore);
+            txtRunningScore.setText("약간 아쉽군요!");
+        } else if (legAngle >= 150 && legAngle <= 160 && upperBodyAngle < 4) {
+            runningScore.setImageResource(R.drawable.neutralscore);
+            txtRunningScore.setText("약간 아쉽군요!");
+        } else if (legAngle >= 150 && legAngle <= 160 && upperBodyAngle > 10) {
+            runningScore.setImageResource(R.drawable.neutralscore);
+            txtRunningScore.setText("약간 아쉽군요!");
+        } else if (legAngle >= 150 && legAngle <= 160 && upperBodyAngle >= 4 && upperBodyAngle <= 10) {
+            runningScore.setImageResource(R.drawable.goodscore);
+            txtRunningScore.setText("완벽합니다!");
+        }
+
 
         //저장하기
         ImageButton saveData = (ImageButton) findViewById(R.id.btnSave);
