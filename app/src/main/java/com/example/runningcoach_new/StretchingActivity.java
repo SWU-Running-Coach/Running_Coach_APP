@@ -36,6 +36,9 @@ public class StretchingActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 101);
         }
 
+
+
+
     }
 
     //카메라

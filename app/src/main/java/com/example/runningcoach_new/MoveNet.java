@@ -96,7 +96,7 @@ public class MoveNet{
     private Bitmap processOutput(TensorBuffer outputBuffer, Bitmap bitmap, AnalyzeResult result) {
 
         Paint paint = new Paint();
-        paint.setColor(Color.RED);
+        paint.setColor(Color.BLUE);
         paint.setStrokeWidth(10f);
 
         // Canvas 객체 생성하여 비트맵 이미지에 그리기
@@ -124,7 +124,7 @@ public class MoveNet{
             float imageX = x * bitmap.getHeight();
             float imageY = y * bitmap.getWidth();
 
-            canvas.drawCircle(imageY, imageX, 5f, paint);
+            canvas.drawCircle(imageY, imageX, 2f, paint);
 
             //Joint 객체 추가
             joints.add(new Joint(i, jointName[i], x, y));
@@ -136,20 +136,35 @@ public class MoveNet{
         paint.setColor(Color.GREEN);
         paint.setStrokeWidth(2f);
 
+        //디딛는 발이 왼발인 경우
+        int flag = 1;
+        if (joints.get(13).getX() < joints.get(14).getX())
+            flag = 0;
+
         // left shoulder-left elbow(5, 7)
         drawLine(5, 7, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
 
         // left elbow-left wrist(7, 9)
         drawLine(7, 9, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
 
+        if (flag == 1)
+            paint.setColor(Color.MAGENTA);
         // left shoulder-left hip(5, 11)
         drawLine(5, 11, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
 
+        if (flag == 1)
+            paint.setColor(Color.GREEN);
+
+        if (flag == 0)
+            paint.setColor(Color.RED);
         // left hip-left knee(11, 13)
         drawLine(11, 13, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
 
         // left knee-left ankle(13, 15)
         drawLine(13, 15, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
+
+        if (flag == 0)
+            paint.setColor(Color.GREEN);
 
         // left shoulder-right shoulder(5, 6)
         drawLine(5, 6, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
@@ -160,15 +175,24 @@ public class MoveNet{
         // right elbow-right wrist(8, 10)
         drawLine(8, 10, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
 
+        if (flag == 0)
+            paint.setColor(Color.MAGENTA);
         // right shoulder-right hip(6, 12)
         drawLine(6, 12, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
 
+        if (flag == 0)
+            paint.setColor(Color.GREEN);
+
+        if (flag == 1)
+            paint.setColor(Color.RED);
         // right hip-right knee(12, 14)
         drawLine(12, 14, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
 
         // right knee-right ankle(14, 16)
         drawLine(14, 16, bitmap.getWidth(), bitmap.getHeight(), paint, joints, canvas);
 
+        if (flag == 1)
+            paint.setColor(Color.GREEN);
 
         calculateJointAngle(joints, result);
 

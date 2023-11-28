@@ -49,6 +49,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="스트레칭 화면" />
+            <Button
+                android:id="@+id/gocalendarbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="캘린더 화면" />
         </LinearLayout>
     </FrameLayout>
 

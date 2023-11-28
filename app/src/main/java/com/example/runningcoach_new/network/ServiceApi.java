@@ -1,5 +1,6 @@
 package com.example.runningcoach_new.network;
 
+import com.example.runningcoach_new.data.FeedbackData;
 import com.example.runningcoach_new.data.LoginData;
 import com.example.runningcoach_new.data.LoginResponse;
 import com.example.runningcoach_new.data.RegisterData;
@@ -20,4 +21,8 @@ public interface ServiceApi {
 
     @POST("/user/user_delete")
     Call<UserDeleteResponse> userDelete(@Body UserDeleteData data);
+
+    @POST("/running")
+    Call<FeedbackData> postData(@Body FeedbackData fbdata);
+
 }
