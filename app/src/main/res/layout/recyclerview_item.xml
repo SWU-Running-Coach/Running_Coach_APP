@@ -3,21 +3,85 @@
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:padding="8dp"
-android:orientation="horizontal">
+android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:text="1"
-        android:textAlignment="center"
-        android:textSize="30sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/numTxt"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/dateTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="2024-01-01"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/upTxt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="상체:"
+            android:textSize="20dp" />
+        <TextView
+            android:id="@+id/upTxt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="4"
+            android:textSize="20dp" />
+    </LinearLayout>
     <TextView
-    android:id="@+id/textView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:textSize="24dp"
-    android:text="text"/>
+        android:id="@+id/upfeedbackTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="상체의 각도가 4˚~10˚ 사이에 있어 좋은 자세입니다."
+        android:textSize="17dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/legTxt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="하체:"
+            android:textSize="20dp" />
+        <TextView
+            android:id="@+id/legTxt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="160"
+            android:textSize="20dp" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/legfeedbackTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="무릎의 각도가 150˚~160˚ 사이에 있어 좋은 자세입니다."
+        android:textSize="17dp" />
+
 </LinearLayout>

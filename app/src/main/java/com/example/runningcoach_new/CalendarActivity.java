@@ -36,9 +36,10 @@ public class CalendarActivity extends AppCompatActivity {
         MaterialCalendarView materialCalendarView = findViewById(R.id.calendarView);
         materialCalendarView.setSelectedDate(CalendarDay.today());
 
+
         //===== 테스트를 위한 더미 데이터 생성 ===================
         ArrayList<String> testDataSet = new ArrayList<>();
-        for (int i = 0; i<20; i++) {
+        for (int i = 0; i<3; i++) {
             testDataSet.add("TEST DATA" + i);
         }
         //========================================================
