@@ -18,7 +18,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         private TextView textView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView);
+            textView = itemView.findViewById(R.id.numTxt);
         }
         public TextView getTextView() {
             return textView;
