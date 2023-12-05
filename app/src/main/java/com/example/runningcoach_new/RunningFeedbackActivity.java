@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ import com.example.runningcoach_new.network.RetrofitClient;
 import com.example.runningcoach_new.network.ServiceApi;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -44,6 +47,16 @@ public class RunningFeedbackActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        //홈 버튼
+        ImageButton btnHome = (ImageButton) findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -162,29 +175,45 @@ public class RunningFeedbackActivity extends AppCompatActivity {
 
         //저장하기
         ImageButton saveData = (ImageButton) findViewById(R.id.btnSave);
+        //intent로 데이터 전달 (임시)
+        float resultLegAngle = legAngle;
+        float resultUpperBodyAngle = upperBodyAngle;
+        String resultDate = dateText.getText().toString();
+        String resultLegAngleTxt = textView2.getText().toString();
+        String resultUpperBodyAngleTxt = textView3.getText().toString();
+        ArrayList<FeedbackResult> feedbackResults = new ArrayList<>();
+
         saveData.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View view) {
-                FeedbackData fbdata = new FeedbackData();
-                fbdata.setText(dateText.getText().toString());
-                service.postData(fbdata).enqueue(new Callback<FeedbackData>() {
-                    @Override
-                    public void onResponse(Call<FeedbackData> call, Response<FeedbackData> response) {
-                        if(response.isSuccessful()){
-                            Toast.makeText(RunningFeedbackActivity.this, "저장 성공", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<FeedbackData> call, Throwable t) {
-
-                    }
-
+                //서버 post
+//                FeedbackData fbdata = new FeedbackData();
+//                fbdata.setText(dateText.getText().toString());
+//                service.postData(fbdata).enqueue(new Callback<FeedbackData>() {
+//                    @Override
+//                    public void onResponse(Call<FeedbackData> call, Response<FeedbackData> response) {
+//                        if(response.isSuccessful()){
+//                            Toast.makeText(RunningFeedbackActivity.this, "저장 성공", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                    @Override
+//                    public void onFailure(Call<FeedbackData> call, Throwable t) {
+//                    }
+//
 //                Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
 //                startActivity(intent);
-                });
+//                });
 
+                //intent로 데이터 전달(임시)
+                Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+                //피드백 데이터를 Calendar액티비티로 intent 전달
+                intent.putExtra("date", resultDate);
+                intent.putExtra("LegAngle", resultLegAngle);
+                intent.putExtra("UpdderBodyAngle", resultUpperBodyAngle);
+                intent.putExtra("LegAngleTxt", resultLegAngleTxt);
+                intent.putExtra("UpdderBodyAngleTxt", resultUpperBodyAngleTxt);
+                startActivity(intent);
 
             }
         });

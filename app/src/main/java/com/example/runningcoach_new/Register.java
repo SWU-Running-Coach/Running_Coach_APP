@@ -42,6 +42,16 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        //홈 버튼
+        ImageButton btnHome = (ImageButton) findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         emailText = (EditText) findViewById(R.id.emailText);
         nicknameText=(EditText) findViewById(R.id.nicknameText);
         pwText = (EditText) findViewById(R.id.pwText);
@@ -109,11 +119,15 @@ public class Register extends AppCompatActivity {
         service.userRegister(data).enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-                RegisterResponse result = response.body();
-                Toast.makeText(Register.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful() && response.body() != null) {
+                    RegisterResponse result = response.body();
+                    Toast.makeText(Register.this, result.getMessage(), Toast.LENGTH_SHORT).show();
 
-                if (result.getStatusCode() == 200) {
-                    finish();
+                    if (result.getStatusCode() == 201) {
+                        finish();
+                    }
+                } else {
+                    Toast.makeText(Register.this, "서버 응답 오류", Toast.LENGTH_SHORT).show();
                 }
             }
 

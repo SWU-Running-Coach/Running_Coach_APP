@@ -65,6 +65,16 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
             }
         });
 
+        //홈 버튼
+        ImageButton btnHome = (ImageButton) findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // MyClassifier 인스턴스 생성
         AssetManager assetManager = getAssets();
         classifier = new Classifier(assetManager);
@@ -131,6 +141,12 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
         cadenceCount=crossCount*4;
         System.out.println("케이던스: " + cadenceCount);
 
+        //분석이미지 띄우기(worst 이미지)
+        ImageView videokview = findViewById(R.id.videoView);
+        Bitmap bitmapToShow = analyzeResult.get(worstLegAngleIndex).getBitmap();
+        if (bitmapToShow != null) {
+            videokview.setImageBitmap(bitmapToShow);
+        }
 
         //달리기 피드백 화면으로 이동
         ImageButton btnGofeedback = (ImageButton) findViewById(R.id.btnGofeedback);
@@ -150,6 +166,8 @@ public class RunningAnalyzeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
 
     }

@@ -49,6 +49,16 @@ public class Mypage extends AppCompatActivity {
             }
         });
 
+        //홈 버튼
+        ImageButton btnHome = (ImageButton) findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         nicknameView = (TextView) findViewById(R.id.nicknameView);
         emailView = (TextView) findViewById(R.id.emailView);
         btnUserinfoChange = (ImageButton) findViewById(R.id.btnUserinfoChange);

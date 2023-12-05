@@ -13,10 +13,10 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface ServiceApi {
-    @POST("/user/login")
+    @POST("/users/login")
     Call<LoginResponse> userLogin(@Body LoginData data);
 
-    @POST("/user/register")
+    @POST("/users/join")
     Call<RegisterResponse> userRegister(@Body RegisterData data);
 
     @POST("/user/user_delete")

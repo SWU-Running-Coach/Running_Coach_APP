@@ -42,6 +42,16 @@ public class VideoUploadActivity extends AppCompatActivity {
             }
         });
 
+        //홈 버튼
+        ImageButton btnHome = (ImageButton) findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         //업로드 버튼, 여기 수정해야함
         uploadVideoView = findViewById(R.id.uploadVideoView);
         ImageButton btnVideoupload = (ImageButton) findViewById(R.id.btnVideoupload);
