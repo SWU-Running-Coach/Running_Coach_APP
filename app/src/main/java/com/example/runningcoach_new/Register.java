@@ -119,13 +119,9 @@ public class Register extends AppCompatActivity {
         service.userRegister(data).enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful()) {
                     RegisterResponse result = response.body();
                     Toast.makeText(Register.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    if (result.getStatusCode() == 201) {
-                        finish();
-                    }
                 } else {
                     Toast.makeText(Register.this, "서버 응답 오류", Toast.LENGTH_SHORT).show();
                 }

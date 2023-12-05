@@ -16,7 +16,7 @@ public interface ServiceApi {
     @POST("/users/login")
     Call<LoginResponse> userLogin(@Body LoginData data);
 
-    @POST("/users/join")
+    @POST("http://13.125.179.60:8080/users/join")
     Call<RegisterResponse> userRegister(@Body RegisterData data);
 
     @POST("/user/user_delete")
