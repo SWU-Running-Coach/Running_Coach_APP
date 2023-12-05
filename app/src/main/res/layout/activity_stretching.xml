@@ -23,10 +23,17 @@ tools:context=".StretchingActivity">
 
     <ImageView
         android:id="@+id/titleLogin"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:layout_marginRight="30dp"
         app:srcCompat="@drawable/stretching" />
+
+    <ImageButton
+        android:id="@+id/btnHome"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:layout_marginRight="30dp"
+        app:srcCompat="@drawable/homebtn" />
 
 </LinearLayout>
 

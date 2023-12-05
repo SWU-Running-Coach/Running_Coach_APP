@@ -23,10 +23,18 @@
 
         <ImageView
             android:id="@+id/titleRunninganalyze"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="30dp"
             app:srcCompat="@drawable/titlefeedback" />
+
+        <ImageButton
+            android:id="@+id/btnHome"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:layout_marginRight="30dp"
+            app:srcCompat="@drawable/homebtn" />
+
 
     </LinearLayout>
 
@@ -59,11 +67,11 @@
 
             <ImageView
                 android:id="@+id/feedbackview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="330dp"
+                android:layout_height="330dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                app:srcCompat="@drawable/feedbackview" />
+                android:background="#4CAF50" />
 
             <LinearLayout
                 android:id="@+id/knee"

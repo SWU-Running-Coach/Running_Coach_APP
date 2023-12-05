@@ -10,46 +10,53 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder>{
-    private ArrayList<String> localDataSet;
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+    private ArrayList<FeedbackResult> feedbackResults;
 
-    //===== 뷰홀더 클래스 =====================================================
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView textView;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textView = itemView.findViewById(R.id.numTxt);
-        }
-        public TextView getTextView() {
-            return textView;
-        }
-    }
-
-    //----- 생성자 --------------------------------------
-    // 생성자를 통해서 데이터를 전달받도록 함
-    public CustomAdapter (ArrayList<String> dataSet) {
-        localDataSet = dataSet;
+    public CustomAdapter(ArrayList<FeedbackResult> feedbackResults) {
+        this.feedbackResults = feedbackResults;
     }
 
     @NonNull
-    @Override   // ViewHolder 객체를 생성하여 리턴한다.
-    public CustomAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recyclerview_item, parent, false);
-        CustomAdapter.ViewHolder viewHolder = new CustomAdapter.ViewHolder(view);
-
-        return viewHolder;
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
+        return new ViewHolder(view);
     }
 
-    @Override   // ViewHolder안의 내용을 position에 해당되는 데이터로 교체한다.
-    public void onBindViewHolder(@NonNull CustomAdapter.ViewHolder holder, int position) {
-        String text = localDataSet.get(position);
-        holder.textView.setText(text);
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        FeedbackResult feedbackResult = feedbackResults.get(position);
+
+        // TODO: ViewHolder에 feedbackResult의 데이터를 설정하세요.
+
+        // 예시:
+        holder.numTxt.setText(String.valueOf(position + 1));
+        holder.dateTxt.setText(feedbackResult.getResultDate());
+        holder.upTxt2.setText(String.valueOf(feedbackResult.getResultUpperBodyAngle()));
+        holder.upfeedbackTxt.setText(feedbackResult.getResultUpperBodyAngleTxt());
+        holder.legTxt2.setText(String.valueOf(feedbackResult.getResultLegAngle()));
+        holder.legfeedbackTxt.setText(feedbackResult.getResultLegAngleTxt());
     }
 
-    @Override   // 전체 데이터의 갯수를 리턴한다.
+    @Override
     public int getItemCount() {
-        return localDataSet.size();
+        return feedbackResults.size();
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView numTxt, dateTxt, upTxt1, upTxt2, upfeedbackTxt, legTxt1, legTxt2, legfeedbackTxt;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            numTxt = itemView.findViewById(R.id.numTxt);
+            dateTxt = itemView.findViewById(R.id.dateTxt);
+            upTxt1 = itemView.findViewById(R.id.upTxt1);
+            upTxt2 = itemView.findViewById(R.id.upTxt2);
+            upfeedbackTxt = itemView.findViewById(R.id.upfeedbackTxt);
+            legTxt1 = itemView.findViewById(R.id.legTxt1);
+            legTxt2 = itemView.findViewById(R.id.legTxt2);
+            legfeedbackTxt = itemView.findViewById(R.id.legfeedbackTxt);
+        }
+    }
 }

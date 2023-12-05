@@ -46,6 +46,16 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        //홈 버튼
+        ImageButton btnHome = (ImageButton) findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         emailText = (EditText) findViewById(R.id.emailText);
         passwordText = (EditText) findViewById(R.id.passwordText);
         goRegister = (Button) findViewById(R.id.goRegister);
